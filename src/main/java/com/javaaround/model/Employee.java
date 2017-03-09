@@ -7,9 +7,8 @@ public class Employee {
     private int id;
 
     @NotNull
-    @Size(max = 25)  
+    @Size(max = 25,min = 5)  
     private String firstName;
-    @NotNull
     @DecimalMax(value = "50000.00")
     private Double salary;  
 

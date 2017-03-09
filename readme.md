@@ -46,7 +46,7 @@ reference implementation of 303 namely `Hibernate Validator`
 1. Add hibernate-validator(provide also Bean Validator API) at pom.xml
 ```xml
 <!-- 
-No need
+No need because it is included hibernate-validator
 <dependency>
     <groupId>javax.validation</groupId>
     <artifactId>validation-api</artifactId>
@@ -58,7 +58,7 @@ No need
     <artifactId>hibernate-validator</artifactId>
     <version>5.3.4.Final</version>
 </dependency>
-<!-- Needed by HV to substitute prams in messages: -->
+<!-- Needed by hibernate-validator to substitute params in messages: -->
 <dependency>
     <groupId>org.glassfish.web</groupId>
     <artifactId>javax.el</artifactId>
@@ -79,9 +79,8 @@ public class Employee {
     private int id;
 
     @NotNull
-    @Size(max = 25)  
+    @Size(max = 25,min = 5)  
     private String firstName;
-    @NotNull
 	@DecimalMax(value = "50000.00")
     private Double salary;  
 
@@ -105,13 +104,19 @@ public class Employee {
     }  
 }   
 ``` 
+Explantion : 
+	1. @NotNull = The value of the property must not be null.Unfortunately it doesn't check for empty string values
+	2. @Size = If the field or property is a String, the size of the string is evaluated. If the field or property is a Collection, the size of the Collection is evaluated. If the field or property is a Map, the size of the Map is evaluated. If the field or property is an array, the size of the array is evaluated. Use one of the optional max or min elements to specify the boundaries.
+	3. @DecimalMax = The value of the property must be a decimal value lower than or equal to the number in the value element.
 
-if the class uses field access type, apply the Bean Validation constraint annotations on the class’s fields. If the class uses property access, apply the constraints on the getter methods.
+Note : if the class uses field access type, apply the Bean Validation constraint annotations on the class’s fields. If the class uses property access, apply the constraints on the getter methods.
 
 3. Update App.java
 
 ```java
 Employee employee = new Employee();
+employee.setId(122);
+employee.setSalary(60000.00);
 ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 Validator validator = factory.getValidator();
 Set<ConstraintViolation<Employee>> constraints = validator

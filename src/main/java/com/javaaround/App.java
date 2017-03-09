@@ -16,10 +16,10 @@ public class App
     {
         System.out.println( "Hello World!" );
         Employee employee = new Employee();
-       /* employee.setId(122);
-		employee.setFirstName("Md.Shamim");
-		employee.setSalary(50000);
-*/
+        employee.setId(122);
+		//employee.setFirstName("Md.Shamim");
+		employee.setSalary(60000.00);
+
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
 		Set<ConstraintViolation<Employee>> constraints = validator
