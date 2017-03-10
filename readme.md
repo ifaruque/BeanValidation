@@ -105,7 +105,7 @@ public class Employee {
 }   
 ``` 
 
-Explantion :
+	Explantion :
  
 	1. @NotNull :
 
@@ -113,13 +113,13 @@ Explantion :
 
 	2. @Size :
 
-		If the field or property is a String, the size of the string is evaluated. If the field or property is a Collection, the size of the Collection is evaluated. If the field or property is a Map, the size of the Map is evaluated. If the field or property is an array, the size of the array is evaluated. Use one of the optional max or min elements to specify the boundaries.
+		If the field or property is a String, the size of the string is evaluated. If the property is a Collection, the size of the Collection is evaluated. If the property is a Map, the size of the Map is evaluated. If the property is an array, the size of the array is evaluated. Use one of the optional `max or min` elements to specify the boundaries.
 
 	3. @DecimalMax :
-	
+
 		The value of the property must be a decimal value lower than or equal to the number in the value element.
 
-Note : if the class uses field access type, apply the Bean Validation constraint annotations on the class’s fields. If the class uses property access, apply the constraints on the getter methods.
+	Note : if the class uses field access type, apply the Bean Validation constraint annotations on the class’s fields. If the class uses property access, apply the constraints on the getter methods.
 
 3. Update App.java
 
