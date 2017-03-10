@@ -117,7 +117,11 @@ reference implementation of 303 namely `Hibernate Validator`
 
 	2. @Size :
 
-		If the field or property is a String, the size of the string is evaluated. If the property is a Collection, the size of the Collection is evaluated. If the property is a Map, the size of the Map is evaluated. If the property is an array, the size of the array is evaluated. Use one of the optional `max or min` elements to specify the boundaries.
+		1. If the property is a String, the size of the string is evaluated. 2. If the property is a Collection, the size of the Collection is evaluated. 
+		3. If the property is a Map, the size of the Map is evaluated. 
+		3. If the property is an array, the size of the array is evaluated.
+
+		Use one of the optional `max or min` elements to specify the boundaries.
 
 	3. @DecimalMax :
 
