@@ -44,66 +44,66 @@ reference implementation of 303 namely `Hibernate Validator`
 ### Example Demo ###
 
 1. Add hibernate-validator(provide also Bean Validator API) at pom.xml
-```xml
-<!-- 
-No need because it is included hibernate-validator
-<dependency>
-    <groupId>javax.validation</groupId>
-    <artifactId>validation-api</artifactId>
-    <version>1.1.0.Final</version>
-</dependency> 
--->
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-validator</artifactId>
-    <version>5.3.4.Final</version>
-</dependency>
-<!-- Needed by hibernate-validator to substitute params in messages: -->
-<dependency>
-    <groupId>org.glassfish.web</groupId>
-    <artifactId>javax.el</artifactId>
-    <version>2.2.4</version>
-    <scope>runtime</scope>
-</dependency>
-```
+	```xml
+	<!-- 
+	No need because it is included hibernate-validator
+	<dependency>
+	    <groupId>javax.validation</groupId>
+	    <artifactId>validation-api</artifactId>
+	    <version>1.1.0.Final</version>
+	</dependency> 
+	-->
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-validator</artifactId>
+	    <version>5.3.4.Final</version>
+	</dependency>
+	<!-- Needed by hibernate-validator to substitute params in messages: -->
+	<dependency>
+	    <groupId>org.glassfish.web</groupId>
+	    <artifactId>javax.el</artifactId>
+	    <version>2.2.4</version>
+	    <scope>runtime</scope>
+	</dependency>
+	```
 
 2. Create a bean(Employee.java)
 
-```java
-package com.javaaround.model;
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+	```java
+	package com.javaaround.model;
+	import javax.validation.constraints.DecimalMax;
+	import javax.validation.constraints.NotNull;
+	import javax.validation.constraints.Size;
 
-public class Employee { 
-    private int id;
+	public class Employee { 
+	    private int id;
 
-    @NotNull
-    @Size(max = 25,min = 5)  
-    private String firstName;
-	@DecimalMax(value = "50000.00")
-    private Double salary;  
+	    @NotNull
+	    @Size(max = 25,min = 5)  
+	    private String firstName;
+		@DecimalMax(value = "50000.00")
+	    private Double salary;  
 
-    public int getId() {  
-        return id;  
-    }  
-    public void setId(int id) {  
-        this.id = id;  
-    }  
-    public String getFirstName() {  
-        return firstName;  
-    }  
-    public void setFirstName(String firstName) {  
-        this.firstName = firstName;  
-    }  
-    public Double getSalary() {  
-        return salary;  
-    }  
-    public void setSalary(Double salary) {  
-        this.salary = salary;  
-    }  
-}   
-``` 
+	    public int getId() {  
+	        return id;  
+	    }  
+	    public void setId(int id) {  
+	        this.id = id;  
+	    }  
+	    public String getFirstName() {  
+	        return firstName;  
+	    }  
+	    public void setFirstName(String firstName) {  
+	        this.firstName = firstName;  
+	    }  
+	    public Double getSalary() {  
+	        return salary;  
+	    }  
+	    public void setSalary(Double salary) {  
+	        this.salary = salary;  
+	    }  
+	}   
+	``` 
 
 	Explantion :
  
@@ -123,23 +123,23 @@ public class Employee {
 
 3. Update App.java
 
-```java
-Employee employee = new Employee();
-employee.setId(122);
-employee.setSalary(60000.00);
-ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-Validator validator = factory.getValidator();
-Set<ConstraintViolation<Employee>> constraints = validator
-	.validate(employee);
-if (constraints.isEmpty()) {
-	System.out.print("validation data");
-}else{	
-	for (ConstraintViolation<Employee> constraint : constraints) {
-		System.out.println(constraint.getPropertyPath() + "  "
-		+ constraint.getMessage());
+	```java
+	Employee employee = new Employee();
+	employee.setId(122);
+	employee.setSalary(60000.00);
+	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	Validator validator = factory.getValidator();
+	Set<ConstraintViolation<Employee>> constraints = validator
+		.validate(employee);
+	if (constraints.isEmpty()) {
+		System.out.print("validation data");
+	}else{	
+		for (ConstraintViolation<Employee> constraint : constraints) {
+			System.out.println(constraint.getPropertyPath() + "  "
+			+ constraint.getMessage());
+		}
 	}
-}
-```
+	```
 
 4. Run app
 
