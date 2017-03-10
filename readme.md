@@ -109,7 +109,11 @@ reference implementation of 303 namely `Hibernate Validator`
  
 	1. @NotNull :
 
-		The value of the property must not be null.Unfortunately it doesn't check for empty string values
+		The value of the property must not be null.Unfortunately it doesn't check for empty string values.For this reason hibernate introduce two new contraints(not yet JPA)
+
+		1. @NotEmpty : The value of the property must not be null && value not empty means if empty spaces then it is valid
+		2. @NotBlank :  The value of the property must not be null && value not empty.trimming the value first and if empty spaces then it is invalid  
+
 
 	2. @Size :
 
@@ -132,7 +136,7 @@ reference implementation of 303 namely `Hibernate Validator`
 	Set<ConstraintViolation<Employee>> constraints = validator
 		.validate(employee);
 	if (constraints.isEmpty()) {
-		System.out.print("validation data");
+		System.out.print("valid data");
 	}else{	
 		for (ConstraintViolation<Employee> constraint : constraints) {
 			System.out.println(constraint.getPropertyPath() + "  "
