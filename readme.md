@@ -172,7 +172,7 @@ reference implementation of 309 namely `GlassFish el`
 Update Employee.java
 
 	```java
-	
+
 	@AssertTrue
 	boolean active; 
 
@@ -184,9 +184,10 @@ Update Employee.java
 
 	```
 
+
 	Explantion :
  
-	1. @AssertTrue : The value of the property must be true where as @AssertFalse The value of the property must be false
+	1. @AssertTrue : The value of the property must be true where as <br>@AssertFalse The value of the property must be false
 
 	2. @Past : The value of the property must be a date in the past.
 	3. @Future : The value of the property must be a date in the future.
