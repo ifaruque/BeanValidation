@@ -172,7 +172,6 @@ reference implementation of 309 namely `GlassFish el`
 Update Employee.java
 
 	```java
-
 	@AssertTrue
 	boolean active; 
 
@@ -181,7 +180,6 @@ Update Employee.java
 
 	@Past
 	Date birthday;
-
 	```
 
 
