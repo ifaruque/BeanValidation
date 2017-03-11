@@ -5,6 +5,9 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import com.javaaround.model.Employee;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
 
 /**
  * Hello world!
@@ -15,10 +18,18 @@ public class App
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Employee employee = new Employee();
-        employee.setId(122);
-		//employee.setFirstName("Md.Shamim");
-		employee.setSalary(60000.00);
+        employee.setActive(false);
+        
+		 try {
+		 	employee.setArrageDate(new Date());
+            employee.setBirthday(formatter.parse("2017-04-02"));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+		
 
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();

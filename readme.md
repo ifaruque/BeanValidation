@@ -120,6 +120,8 @@ reference implementation of 309 namely `GlassFish el`
 		@NotBlank: false
 		```
 
+		@Null : The value of the property must be null.
+
 
 	2. @Size :
 
@@ -132,11 +134,11 @@ reference implementation of 309 namely `GlassFish el`
 
 	3. @DecimalMax :
 
-		The value of the property must be a decimal value lower than or equal to the number in the value element.
+		The value of the property must be a decimal value lower than or equal to the number in the `value` element. Similarway `@Max` for interger
 
 	4. @DecimalMin :
 
-		The value of the property must be a decimal value greater than or equal to the number in the value element.	
+		The value of the property must be a decimal value greater than or equal to the number in the `value` element.	Similarway `@Min` for interger
 
 	Note : if the class uses field access type, apply the Bean Validation constraint annotations on the class’s fields. If the class uses property access, apply the constraints on the getter methods.
 
@@ -148,6 +150,7 @@ reference implementation of 309 namely `GlassFish el`
 	employee.setSalary(60000.00);
 	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	Validator validator = factory.getValidator();
+	
 	Set<ConstraintViolation<Employee>> constraints = validator
 		.validate(employee);
 	if (constraints.isEmpty()) {
@@ -164,10 +167,41 @@ reference implementation of 309 namely `GlassFish el`
 
 ![Image of Nested](images/1.png) 
 
-### More Constraints ###
+### @AssertTrue,@Future,@Past ###
 
 Update Employee.java
 
 ```java
+@AssertTrue
+boolean active; 
 
+@Future
+Date arrageDate;
+
+@Past
+Date birthday;
 ```
+Explantion :
+ 
+	1. @AssertTrue : The value of the property must be true where as @AssertFalse The value of the property must be false
+
+	2. @Past : The value of the property must be a date in the past.
+	3. @Future : The value of the property must be a date in the future.
+
+Update App.java
+
+```java
+employee.setActive(false);
+try {
+ 	employee.setArrageDate(new Date());
+    employee.setBirthday(formatter.parse("2017-04-02"));
+
+} catch (ParseException e) {
+    e.printStackTrace();
+}
+		
+```	
+
+Run app
+
+![Image of Nested](images/2.png) 
