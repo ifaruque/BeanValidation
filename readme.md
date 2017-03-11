@@ -167,9 +167,10 @@ reference implementation of 309 namely `GlassFish el`
 
 ![Image of Nested](images/1.png) 
 
+
 ### @AssertTrue,@Future,@Past ###
 
-	Update Employee.java
+1. Update Employee.java
 
 	```java
 	@AssertTrue
@@ -193,7 +194,7 @@ reference implementation of 309 namely `GlassFish el`
 	3. @Future : 
 		The value of the property must be a date in the future.
 
-	Update App.java
+2. Update App.java
 
 	```java
 	employee.setActive(false);
@@ -214,31 +215,31 @@ Run app
 
 ### @Digits,@Pattern ###
 
-Update Employee.java
+1. Update Employee.java
 
-```java
-//Age can only be 2 digits long or less
-@Digits(integer=2, fraction=0)
-private int age;
+	```java
+	//Age can only be 2 digits long or less
+	@Digits(integer=2, fraction=0)
+	private int age;
 
-@Pattern(regexp=".+@.+\\.[a-z]+")
-private String email;
-```
+	@Pattern(regexp=".+@.+\\.[a-z]+")
+	private String email;
+	```
 
-Explantion :
- 
+	Explantion :
+	 
 	1. @Digits : 
-		The value of the property specifies the maximum `integer` digits and `fraction` element specifies the maximum fractional digits for the number.
+			The value of the property specifies the maximum `integer` digits and `fraction` element specifies the maximum fractional digits for the number.
 
 	2. @Pattern : 
-		The value of the field or property must match the regular expression defined in the `regexp` element.
+			The value of the field or property must match the regular expression defined in the `regexp` element.
 
-Upadate App.java
+2. Upadate App.java
 
-```java
-employee.setAge(100);
-employee.setEmail("shamim.ict0754gmail.com");
-```
+	```java
+	employee.setAge(100);
+	employee.setEmail("shamim.ict0754gmail.com");
+	```
 
 Run app
 
