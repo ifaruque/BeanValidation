@@ -5,6 +5,10 @@ Bean Validation specification JSR No 303 and introduce from jdk 6
 Prior to JSR 303, you probably would have needed a bunch of if-else statements to achieve the bean validation.It saves lot of code.
 
 reference implementation of 303 namely `Hibernate Validator`
+
+JSR 349 extend jsr 303 provides for variable interpolation, allowing expressions inside the violation messages
+
+reference implementation of 309 namely `GlassFish el`
  
 ### Warmup ###
 
@@ -54,6 +58,11 @@ reference implementation of 303 namely `Hibernate Validator`
 	</dependency> 
 	-->
 	<dependency>
+	    <groupId>javax.el</groupId>
+	    <artifactId>javax.el-api</artifactId>
+	    <version>2.2.4</version>
+	</dependency>
+	<dependency>
 	    <groupId>org.hibernate</groupId>
 	    <artifactId>hibernate-validator</artifactId>
 	    <version>5.3.4.Final</version>
@@ -84,24 +93,7 @@ reference implementation of 303 namely `Hibernate Validator`
 		@DecimalMax(value = "50000.00")
 	    private Double salary;  
 
-	    public int getId() {  
-	        return id;  
-	    }  
-	    public void setId(int id) {  
-	        this.id = id;  
-	    }  
-	    public String getFirstName() {  
-	        return firstName;  
-	    }  
-	    public void setFirstName(String firstName) {  
-	        this.firstName = firstName;  
-	    }  
-	    public Double getSalary() {  
-	        return salary;  
-	    }  
-	    public void setSalary(Double salary) {  
-	        this.salary = salary;  
-	    }  
+	    
 	}   
 	``` 
 
@@ -111,13 +103,28 @@ reference implementation of 303 namely `Hibernate Validator`
 
 		The value of the property must not be null.Unfortunately it doesn't check for empty string values.For this reason hibernate introduce two new contraints(not yet JPA)
 
-		1. @NotEmpty : The value of the property must not be null && value not empty means if empty spaces then it is valid
-		2. @NotBlank :  The value of the property must not be null && value not empty.trimming the value first and if empty spaces then it is invalid  
+		1. @NotBlank :  The string is not null and the trimmed length is greater than zero.
+		2. @NotEmpty : The String, Collection, Map or Array object is not null and size > 0.
+
+		```java
+		String name = "";
+		@NotNull: true
+		@NotEmpty: false
+		@NotBlank: false
+
+		but 
+
+		String name = " "; //space
+		@NotNull: true
+		@NotEmpty: true
+		@NotBlank: false
+		```
 
 
 	2. @Size :
 
-		1. If the property is a String, the size of the string is evaluated. 2. If the property is a Collection, the size of the Collection is evaluated. 
+		1. If the property is a String, the size of the string is evaluated. 
+		2. If the property is a Collection, the size of the Collection is evaluated. 
 		3. If the property is a Map, the size of the Map is evaluated. 
 		3. If the property is an array, the size of the array is evaluated.
 
@@ -126,6 +133,10 @@ reference implementation of 303 namely `Hibernate Validator`
 	3. @DecimalMax :
 
 		The value of the property must be a decimal value lower than or equal to the number in the value element.
+
+	4. @DecimalMin :
+
+		The value of the property must be a decimal value greater than or equal to the number in the value element.	
 
 	Note : if the class uses field access type, apply the Bean Validation constraint annotations on the class’s fields. If the class uses property access, apply the constraints on the getter methods.
 
@@ -152,3 +163,11 @@ reference implementation of 303 namely `Hibernate Validator`
 4. Run app
 
 ![Image of Nested](images/1.png) 
+
+### More Constraints ###
+
+Update Employee.java
+
+```java
+
+```
