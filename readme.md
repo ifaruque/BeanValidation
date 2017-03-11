@@ -185,10 +185,13 @@ reference implementation of 309 namely `GlassFish el`
 
 	Explantion :
  
-	1. @AssertTrue : The value of the property must be true where as <br>@AssertFalse The value of the property must be false
+	1. @AssertTrue :
+		The value of the property must be true where as <br>@AssertFalse The value of the property must be false
 
-	2. @Past : The value of the property must be a date in the past.
-	3. @Future : The value of the property must be a date in the future.
+	2. @Past : 
+		The value of the property must be a date in the past.
+	3. @Future : 
+		The value of the property must be a date in the future.
 
 	Update App.java
 
@@ -207,3 +210,36 @@ reference implementation of 309 namely `GlassFish el`
 Run app
 
 ![Image of Nested](images/2.png) 
+
+
+### @Digits,@Pattern ###
+
+Update Employee.java
+
+```java
+//Age can only be 2 digits long or less
+@Digits(integer=2, fraction=0)
+private int age;
+
+@Pattern(regexp=".+@.+\\.[a-z]+")
+private String email;
+```
+
+Explantion :
+ 
+	1. @Digits : 
+		The value of the property specifies the maximum `integer` digits and `fraction` element specifies the maximum fractional digits for the number.
+
+	2. @Pattern : 
+		The value of the field or property must match the regular expression defined in the `regexp` element.
+
+Upadate App.java
+
+```java
+employee.setAge(100);
+employee.setEmail("shamim.ict0754gmail.com");
+```
+
+Run app
+
+![Image of Nested](images/3.png) 

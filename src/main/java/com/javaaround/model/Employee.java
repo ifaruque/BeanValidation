@@ -5,6 +5,8 @@ import javax.validation.constraints.Size;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Pattern;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
@@ -20,13 +22,11 @@ public class Employee {
     @DecimalMax(value = "50000.00")
     private Double salary; 
 
-    @AssertTrue
-    boolean active; 
+    //Age can only be 2 digits long or less
+    @Digits(integer=2, fraction=0)
+    private int age;
 
-    @Future
-    Date arrageDate;
-
-    @Past
-    Date birthday;
+    @Pattern(regexp=".+@.+\\.[a-z]+")
+    private String email;
 
 }   

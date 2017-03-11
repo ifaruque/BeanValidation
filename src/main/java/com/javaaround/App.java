@@ -20,16 +20,8 @@ public class App
         System.out.println( "Hello World!" );
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Employee employee = new Employee();
-        employee.setActive(false);
-        
-		 try {
-		 	employee.setArrageDate(new Date());
-            employee.setBirthday(formatter.parse("2017-04-02"));
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-		
+        employee.setAge(100);
+	 	employee.setEmail("shamim.ict0754gmail.com");
 
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
