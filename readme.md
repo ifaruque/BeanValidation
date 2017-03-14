@@ -282,7 +282,6 @@ you can separting message into file(ValidationMessages.properties) from java cod
 1. Update Employee.java
 
 	```java
-	
 	//Age can only be 2 digits long or less
 	@Digits(integer=2, fraction=0)
 	private int age;
@@ -290,16 +289,15 @@ you can separting message into file(ValidationMessages.properties) from java cod
 	@Pattern(regexp=".+@.+\\.[a-z]+",message="{error.invalid_email}")
 	@NotNull(message="{error.required}")
 	private String email;
-
 	```
 
 	Explantion :
 		 
 		1. @Digits : 
-				if you don't specify message key then it search message key by <br>following format contraints-namewithpackage.message(e.g javax.validation.constraints.Digits.message)
+			if you don't specify message key then it search message key by <br>following format contraints-namewithpackage.message<br>(e.g javax.validation.constraints.Digits.message)
 
 		2. @Pattern & @NotNull: 
-				since here define message key then it search that key into ValidationMessages.properties
+			since here define message key then it search that key into ValidationMessages.properties
 
 2. Create ValidationMessages.properties at src/main/resources
 
