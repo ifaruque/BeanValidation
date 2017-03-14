@@ -16,17 +16,17 @@ import java.util.Date;
 public class Employee { 
 
     private int id;
-    @NotNull
     @Size(max = 25,min = 5)  
     private String firstName;
     @DecimalMax(value = "50000.00")
     private Double salary; 
 
     //Age can only be 2 digits long or less
-    @Digits(integer=2, fraction=0,message="${integer  > 1 ? 's' : ''} must be {integer} digits long or less")
+    @Digits(integer=2, fraction=0)
     private int age;
 
-    @Pattern(regexp=".+@.+\\.[a-z]+",message="'${validatedValue}' invalid ")
+    @Pattern(regexp=".+@.+\\.[a-z]+",message="{error.invalid_email}")
+    @NotNull(message="{error.required}")
     private String email;
 
 }   

@@ -271,8 +271,41 @@ Update Employee.java
 @Digits(integer=2, fraction=0,message="${integer  > 1 ? 's' : ''} must be {integer} digits long or less")
 private int age;
 
-@Pattern(regexp=".+@.+\\.[a-z]+",message="'${validatedValue}' invalid ")
+@Pattern(regexp=".+@.+\\.[a-z]+",message="email.invalid")
 private String email;
 ```
 
+### Separting message from java ###
+
+you can separting message into file(ValidationMessages.properties) from java code.this file contains message-key = message
+
+1. Update Employee.java
+
+	```java
+	//Age can only be 2 digits long or less
+	@Digits(integer=2, fraction=0)
+	private int age;
+
+	@Pattern(regexp=".+@.+\\.[a-z]+",message="{error.invalid_email}")
+	@NotNull(message="{error.required}")
+	private String email;
+	```
+
+	Explantion :
+		 
+		1. @Digits : 
+				if you don't specify message key then it search message key by following format contraints-name.message(e.g javax.validation.constraints.Digits.message)
+
+		2. @Pattern & @NotNull: 
+				since here define message key then it search that key into ValidationMessages.properties
+
+2. Create ValidationMessages.properties at src/main/resources
+
+	```properties
+	javax.validation.constraints.Digits.message=Age must be 2 digits long or less
+	error.invalid_email=Email mustss be match {regexp}
+	error.required=Email can't null
+	```
+
+Run app	
 

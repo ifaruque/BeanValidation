@@ -8,6 +8,8 @@ import com.javaaround.model.Employee;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
+import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
+import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 
 /**
  * Hello world!
@@ -25,6 +27,16 @@ public class App
 
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
+		/*Validator validator = Validation.byDefaultProvider()
+		.configure()
+		.messageInterpolator(
+				new ResourceBundleMessageInterpolator(
+						new PlatformResourceBundleLocator( "ValidationMessages" )
+				)
+		)
+		.buildValidatorFactory()
+		.getValidator();
+*/
 		Set<ConstraintViolation<Employee>> constraints = validator
 			.validate(employee);
 		if (constraints.isEmpty()) {
