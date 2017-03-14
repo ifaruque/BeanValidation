@@ -294,7 +294,7 @@ you can separting message into file(ValidationMessages.properties) from java cod
 	Explantion :
 		 
 	1. @Digits : 
-		if you don't specify message key then it search message key by <br>following format contraints-namewithpackage.message<br>(e.g javax.validation.constraints.Digits.message)
+		if you don't specify message key then it search `message key/message` by <br>following format contraints-namewithpackage.message<br>(e.g javax.validation.constraints.Digits.message)
 
 	2. @Pattern & @NotNull: 
 		since here define message key then it search that key into ValidationMessages.properties
@@ -308,4 +308,41 @@ you can separting message into file(ValidationMessages.properties) from java cod
 	```
 
 Run app	
+
+Default file named ValidationMessages.properties is loaded if you need other name file e.g message.properties
+
+Update App.java
+
+```java
+/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+Validator validator = factory.getValidator();*/
+Validator validator = Validation.byDefaultProvider()
+.configure()
+.messageInterpolator(
+		new ResourceBundleMessageInterpolator(
+				new PlatformResourceBundleLocator( "messages" )
+		)
+)
+.buildValidatorFactory()
+.getValidator();
+```
+
+For Multiple file load
+
+```java
+Validator validator = Validation.byDefaultProvider()
+		.configure()
+		.messageInterpolator(
+				new ResourceBundleMessageInterpolator(
+						new AggregateResourceBundleLocator(
+								Arrays.asList(
+										"MyMessages",
+										"MyOtherMessages"
+								)
+						)
+				)
+		)
+		.buildValidatorFactory()
+		.getValidator();
+```
 

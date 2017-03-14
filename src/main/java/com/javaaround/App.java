@@ -25,18 +25,18 @@ public class App
         employee.setAge(100);
 	 	employee.setEmail("shamim.ict0754gmail.com");
 
-		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
-		Validator validator = factory.getValidator();
-		/*Validator validator = Validation.byDefaultProvider()
+		/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+		Validator validator = factory.getValidator();*/
+		Validator validator = Validation.byDefaultProvider()
 		.configure()
 		.messageInterpolator(
 				new ResourceBundleMessageInterpolator(
-						new PlatformResourceBundleLocator( "ValidationMessages" )
+						new PlatformResourceBundleLocator( "messages" )
 				)
 		)
 		.buildValidatorFactory()
 		.getValidator();
-*/
+
 		Set<ConstraintViolation<Employee>> constraints = validator
 			.validate(employee);
 		if (constraints.isEmpty()) {
