@@ -14,7 +14,7 @@ import java.util.Date;
 
 @Data
 public class Employee { 
-
+    
     private int id;
     @Size(max = 25,min = 5)  
     private String firstName;
@@ -28,5 +28,10 @@ public class Employee {
     @Pattern(regexp=".+@.+\\.[a-z]+",message="{error.invalid_email}")
     @NotNull(message="{error.required}")
     private String email;
+
+    public void printData(@NotNull @Size(min=5) String data){
+        System.out.println("Data is::"+data);
+    }
+
 
 }   

@@ -10,7 +10,8 @@ import java.util.Date;
 import java.text.ParseException;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
-
+import java.lang.reflect.Method;
+import javax.validation.executable.ExecutableValidator;
 /**
  * Hello world!
  *
@@ -37,15 +38,26 @@ public class App
 		.buildValidatorFactory()
 		.getValidator();
 
-		Set<ConstraintViolation<Employee>> constraints = validator
-			.validate(employee);
-		if (constraints.isEmpty()) {
-			System.out.print("validation data");
-		}else{	
-			for (ConstraintViolation<Employee> constraint : constraints) {
-				System.out.println(constraint.getPropertyPath() + "  "
-				+ constraint.getMessage());
+		try{
+			Method method = Employee.class.getMethod("printData", String.class);
+			ExecutableValidator executableValidator = validator.forExecutables();
+			Object[] params = {"ab"};
+			Set<ConstraintViolation<Employee>> constraints = executableValidator
+			.validateParameters(employee, method, params);
+			if (constraints.isEmpty()) {
+				System.out.print("validation data");
+			}else{	
+				for (ConstraintViolation<Employee> constraint : constraints) {
+					System.out.println(constraint.getMessageTemplate() + constraint.getPropertyPath() + "  "
+					+ constraint.getMessage());
+				}
 			}
+
+		}catch(Exception e){
+
 		}
+		
+		
+		
     }
 }

@@ -4,11 +4,11 @@ Bean Validation specification JSR No 303 and introduce from jdk 6
 
 Prior to JSR 303, you probably would have needed a bunch of if-else statements to achieve the bean validation.It saves lot of code.
 
-reference implementation of 303 namely `Hibernate Validator`
+reference implementation of 303 named `Hibernate Validator`
 
 JSR 349 extend jsr 303 provides for variable interpolation, allowing expressions inside the violation messages
 
-reference implementation of 309 namely `GlassFish el`
+reference implementation of 349 named `GlassFish el`
  
 ### Warmup ###
 
@@ -150,6 +150,12 @@ reference implementation of 309 namely `GlassFish el`
 	employee.setSalary(60000.00);
 	ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 	Validator validator = factory.getValidator();
+	/*
+	//If there are multiple JSR303 implementations in classpath
+		//we can get HibernateValidator specifically too
+		ValidatorFactory hibernateVF = Validation.byProvider(HibernateValidator.class)
+									.configure().buildValidatorFactory();
+	*/
 	
 	Set<ConstraintViolation<Employee>> constraints = validator
 		.validate(employee);
@@ -157,11 +163,17 @@ reference implementation of 309 namely `GlassFish el`
 		System.out.print("valid data");
 	}else{	
 		for (ConstraintViolation<Employee> constraint : constraints) {
-			System.out.println(constraint.getPropertyPath() + "  "
+			System.out.println(constraint.getMessageTemplate() + constraint.getPropertyPath() + "  "
 			+ constraint.getMessage());
 		}
 	}
 	```
+
+	Explanation
+
+	1. getMessageTemplate() :  return message key 
+	2. getPropertyPath() :  return error field/property name
+	3. getMessage() :  return error message
 
 4. Run app
 
@@ -345,4 +357,43 @@ Validator validator = Validation.byDefaultProvider()
 		.buildValidatorFactory()
 		.getValidator();
 ```
+
+### Method Parameter Validation ###
+
+Update Employee.java
+
+```java
+public void printData(@NotNull @Size(min=5) String data){
+    System.out.println("Data is::"+data);
+}
+```
+
+App.java
+
+```java
+import java.lang.reflect.Method;
+import javax.validation.executable.ExecutableValidator;
+try{
+	Method method = Employee.class.getMethod("printData", String.class);
+	ExecutableValidator executableValidator = validator.forExecutables();
+	Object[] params = {"ab"};
+	Set<ConstraintViolation<Employee>> constraints = executableValidator
+	.validateParameters(employee, method, params);
+	if (constraints.isEmpty()) {
+		System.out.print("validation data");
+	}else{	
+		for (ConstraintViolation<Employee> constraint : constraints) {
+			System.out.println(constraint.getMessageTemplate() + constraint.getPropertyPath() + "  "
+			+ constraint.getMessage());
+		}
+	}
+
+}catch(Exception e){
+
+}
+```
+
+Run app
+
+![Image of Nested](images/4.png) 
 
