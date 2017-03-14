@@ -293,11 +293,11 @@ you can separting message into file(ValidationMessages.properties) from java cod
 
 	Explantion :
 		 
-		1. @Digits : 
-			if you don't specify message key then it search message key by <br>following format contraints-namewithpackage.message<br>(e.g javax.validation.constraints.Digits.message)
+	1. @Digits : 
+		if you don't specify message key then it search message key by <br>following format contraints-namewithpackage.message<br>(e.g javax.validation.constraints.Digits.message)
 
-		2. @Pattern & @NotNull: 
-			since here define message key then it search that key into ValidationMessages.properties
+	2. @Pattern & @NotNull: 
+		since here define message key then it search that key into ValidationMessages.properties
 
 2. Create ValidationMessages.properties at src/main/resources
 
