@@ -244,3 +244,19 @@ Run app
 Run app
 
 ![Image of Nested](images/3.png) 
+
+
+### Customizing Validator Messages ###
+
+Update Employee.java
+
+```java
+//Age can only be 2 digits long or less
+@Digits(integer=2, fraction=0,message="Age must be 2 digits long or less")
+private int age;
+
+@Pattern(regexp=".+@.+\\.[a-z]+",message="invalid email")
+private String email;
+```
+
+
