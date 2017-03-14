@@ -23,10 +23,10 @@ public class Employee {
     private Double salary; 
 
     //Age can only be 2 digits long or less
-    @Digits(integer=2, fraction=0,message="Age must be 2 digits long or less")
+    @Digits(integer=2, fraction=0,message="${integer  > 1 ? 's' : ''} must be {integer} digits long or less")
     private int age;
 
-    @Pattern(regexp=".+@.+\\.[a-z]+",message="invalid email")
+    @Pattern(regexp=".+@.+\\.[a-z]+",message="'${validatedValue}' invalid ")
     private String email;
 
 }   

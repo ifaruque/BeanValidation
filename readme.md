@@ -259,4 +259,20 @@ private int age;
 private String email;
 ```
 
+Message parameters are string literals enclosed in {contraint param}  e.g {integer} for @Digits
+
+message expressions are string literals enclosed in ${expression}  e.g {integer  > 1 ? 's' : ''}
+
+`${validatedValue}` is a special expression that retrive fieldname + value
+
+Update Employee.java
+
+```java
+@Digits(integer=2, fraction=0,message="${integer  > 1 ? 's' : ''} must be {integer} digits long or less")
+private int age;
+
+@Pattern(regexp=".+@.+\\.[a-z]+",message="'${validatedValue}' invalid ")
+private String email;
+```
+
 
