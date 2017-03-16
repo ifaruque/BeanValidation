@@ -132,6 +132,11 @@ reference implementation of 349 named `GlassFish el`
 
 		Use one of the optional `max or min` elements to specify the boundaries.
 
+		equivalent Hibernate specific annotation of @size
+
+		1. `@Length(min=, max=)` only used for string 
+		2. `@Range(min=, max=)` BigDecimal, BigInteger, CharSequence, byte, short, int, long and the respective wrappers of the primitive types
+
 	3. @DecimalMax :
 
 		The value of the property must be a decimal value lower than or equal to the number in the `value` element. Similarway `@Max` for interger
@@ -358,9 +363,9 @@ Run app
 ![Image of Nested](images/6.png) 
 
 
-### Additional constraints ###
+### Hibnerate specific constraints ###
 
-In addition to the constraints defined above by the Bean Validation API Hibernate Validator provides several useful custom constraints.That are described below
+In addition to the constraints defined above by the Bean Validation API . Hibernate Validator provides several useful custom constraints.That are described below
 
 ### Customizing Validator Messages ###
 
@@ -449,14 +454,14 @@ For Multiple file load
 Validator validator = Validation.byDefaultProvider()
 		.configure()
 		.messageInterpolator(
-				new ResourceBundleMessageInterpolator(
-						new AggregateResourceBundleLocator(
-								Arrays.asList(
-										"MyMessages",
-										"MyOtherMessages"
-								)
+			new ResourceBundleMessageInterpolator(
+				new AggregateResourceBundleLocator(
+						Arrays.asList(
+								"MyMessages",
+								"MyOtherMessages"
 						)
 				)
+			)
 		)
 		.buildValidatorFactory()
 		.getValidator();

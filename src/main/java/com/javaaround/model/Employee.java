@@ -7,6 +7,7 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Email;
 import javax.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,13 +28,7 @@ public class Employee {
     @Digits(integer=2, fraction=0)
     private int age;
 
-    @Pattern(regexp=".+@.+\\.[a-z]+",message="{error.invalid_email}")
-    @NotNull(message="{error.required}")
+    @Email
     private String email;
 
-    public void printData(@NotNull @Size(min=5) String data){
-        System.out.println("Data is::"+data);
-    }
-    @Valid
-    private List<Address> addressList;
 }   
