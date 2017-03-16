@@ -8,6 +8,8 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.URL;
 import javax.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,5 +32,10 @@ public class Employee {
 
     @Email
     private String email;
+    @SafeHtml
+    private String remarks;
+
+    @URL
+    private String profileLink;
 
 }   

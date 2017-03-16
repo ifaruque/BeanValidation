@@ -28,21 +28,10 @@ public class App
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Employee employee = new Employee();
         employee.setAge(100);
-	 	employee.setEmail("shamim.ict0754gmail.com");
-
-	 	Address add1 = new Address();
-	 	add1.setStreet("");
-	 	add1.setCity("Tangail");
-	 	add1.setPostcode("1900");
-
-	 	Address add2 = new Address();
-	 	add1.setStreet("1220");
-	 	add1.setCity("Tangail");
-	 	add1.setPostcode(null);
-	 	List<Address> addressList = new ArrayList<Address>();
-	 	addressList.add(add1);
-	 	addressList.add(add2);
-	 	employee.setAddressList(addressList);
+	 	employee.setEmail("shamim.ict0754gmailcom");
+	 	employee.setRemarks("<script>alert('')</script");
+	 	//employee.setRemarks("<p>alert('')</p");
+	 	employee.setProfileLink("https");
 
 		/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();*/
