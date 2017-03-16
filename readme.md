@@ -258,6 +258,110 @@ Run app
 ![Image of Nested](images/3.png) 
 
 
+### @Valid ###
+
+Performs validation recursively on the associated object if the object is a collection or an array or map or composition object
+
+1. Create EmployeeDetails.java
+
+	```java
+	package com.javaaround.model;
+	import lombok.Data;
+	import javax.validation.constraints.NotNull;
+	import org.hibernate.validator.constraints.NotEmpty;
+	@Data
+	public class EmployeeDetails { 
+		private int id;
+		@NotEmpty
+		private String city;
+		@NotNull
+		private String fatherName;
+
+
+	}	
+	```
+2. Update Employee.java
+
+	```java
+	import javax.validation.Valid;
+	@Valid
+    private EmployeeDetails empDetails;
+	```
+3. Update App.java
+
+	```java
+	Employee employee = new Employee();
+    employee.setAge(100);
+ 	employee.setEmail("shamim.ict0754gmail.com");
+
+ 	EmployeeDetails empDetails = new EmployeeDetails();
+ 	empDetails.setCity("");
+ 	empDetails.setFatherName("Md.Shamsul Alam");
+
+ 	employee.setEmpDetails(empDetails);
+	```
+Run app
+
+![Image of Nested](images/5.png) 
+
+
+Another demo on collection object
+
+1. Create Address.java
+
+	```java
+	package com.javaaround.model;
+	import javax.validation.constraints.NotNull;
+	import org.hibernate.validator.constraints.NotEmpty;
+	import lombok.Data;
+
+	@Data 
+	public class Address { 
+		@NotEmpty
+		private String street;
+		@NotEmpty
+		private String city;
+		@NotNull
+		private String postcode;
+
+	}	
+	```
+2. Update Employee.java
+
+	```java
+	@Valid
+    private List<Address> addressList;
+	```
+3. Update App.java
+
+	```java
+	Employee employee = new Employee();
+    employee.setAge(100);
+ 	employee.setEmail("shamim.ict0754gmail.com");
+
+ 	Address add1 = new Address();
+ 	add1.setStreet("");
+ 	add1.setCity("Tangail");
+ 	add1.setPostcode("1900");
+
+ 	Address add2 = new Address();
+ 	add1.setStreet("1220");
+ 	add1.setCity("Tangail");
+ 	add1.setPostcode(null);
+ 	List<Address> addressList = new ArrayList<Address>();
+ 	addressList.add(add1);
+ 	addressList.add(add2);
+ 	employee.setAddressList(addressList);
+	```
+Run app
+
+![Image of Nested](images/6.png) 
+
+
+###Additional constraints ###
+
+In addition to the constraints defined above by the Bean Validation API Hibernate Validator provides several useful custom constraints.That are described below
+
 ### Customizing Validator Messages ###
 
 Update Employee.java
@@ -360,6 +464,10 @@ Validator validator = Validation.byDefaultProvider()
 
 ### Method Parameter Validation ###
 
+The validation of method constraints is done using the ExecutableValidator interface.The ExecutableValidator interface offers altogether four methods:
+1. validateParameters() and validateReturnValue() for method validation
+2. validateConstructorParameters() and validateConstructorReturnValue() for constructor validation
+
 Update Employee.java
 
 ```java
@@ -374,6 +482,7 @@ App.java
 import java.lang.reflect.Method;
 import javax.validation.executable.ExecutableValidator;
 try{
+    //int param validation then int.class
 	Method method = Employee.class.getMethod("printData", String.class);
 	ExecutableValidator executableValidator = validator.forExecutables();
 	Object[] params = {"ab"};
@@ -396,4 +505,11 @@ try{
 Run app
 
 ![Image of Nested](images/4.png) 
+
+
+
+Referece Documentation
+
+[Download](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-method-constraints)
+
 

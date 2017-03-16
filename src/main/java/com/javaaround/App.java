@@ -5,8 +5,12 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import com.javaaround.model.Employee;
+import com.javaaround.model.EmployeeDetails;
+import com.javaaround.model.Address;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.text.ParseException;
 import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator;
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
@@ -26,6 +30,20 @@ public class App
         employee.setAge(100);
 	 	employee.setEmail("shamim.ict0754gmail.com");
 
+	 	Address add1 = new Address();
+	 	add1.setStreet("");
+	 	add1.setCity("Tangail");
+	 	add1.setPostcode("1900");
+
+	 	Address add2 = new Address();
+	 	add1.setStreet("1220");
+	 	add1.setCity("Tangail");
+	 	add1.setPostcode(null);
+	 	List<Address> addressList = new ArrayList<Address>();
+	 	addressList.add(add1);
+	 	addressList.add(add2);
+	 	employee.setAddressList(addressList);
+
 		/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();*/
 		Validator validator = Validation.byDefaultProvider()
@@ -38,25 +56,16 @@ public class App
 		.buildValidatorFactory()
 		.getValidator();
 
-		try{
-			Method method = Employee.class.getMethod("printData", String.class);
-			ExecutableValidator executableValidator = validator.forExecutables();
-			Object[] params = {"ab"};
-			Set<ConstraintViolation<Employee>> constraints = executableValidator
-			.validateParameters(employee, method, params);
-			if (constraints.isEmpty()) {
-				System.out.print("validation data");
-			}else{	
-				for (ConstraintViolation<Employee> constraint : constraints) {
-					System.out.println(constraint.getMessageTemplate() + constraint.getPropertyPath() + "  "
-					+ constraint.getMessage());
-				}
+		Set<ConstraintViolation<Employee>> constraints = validator
+			.validate(employee);
+		if (constraints.isEmpty()) {
+			System.out.print("valid data");
+		}else{	
+			for (ConstraintViolation<Employee> constraint : constraints) {
+				System.out.println(constraint.getMessageTemplate() + constraint.getPropertyPath() + "  "
+				+ constraint.getMessage());
 			}
-
-		}catch(Exception e){
-
 		}
-		
 		
 		
     }

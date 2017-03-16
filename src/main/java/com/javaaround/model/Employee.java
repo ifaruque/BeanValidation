@@ -7,9 +7,11 @@ import javax.validation.constraints.Future;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Pattern;
+import javax.validation.Valid;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Date;
+import java.util.List;
 
 
 @Data
@@ -32,6 +34,6 @@ public class Employee {
     public void printData(@NotNull @Size(min=5) String data){
         System.out.println("Data is::"+data);
     }
-
-
+    @Valid
+    private List<Address> addressList;
 }   
