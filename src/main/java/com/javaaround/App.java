@@ -6,6 +6,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import com.javaaround.model.Employee;
 import com.javaaround.model.EmployeeDetails;
+import com.javaaround.model.EmployeeChecks;
 import com.javaaround.model.Address;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -27,11 +28,8 @@ public class App
         System.out.println( "Hello World!" );
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd");
         Employee employee = new Employee();
-        employee.setAge(100);
-	 	employee.setEmail("shamim.ict0754gmailcom");
-	 	employee.setRemarks("<script>alert('')</script");
-	 	//employee.setRemarks("<p>alert('')</p");
-	 	employee.setProfileLink("https");
+        //employee.setAge(18);
+	 	employee.setEmail("shamim.ict0754@gmail.com");
 
 		/*ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();*/
@@ -46,7 +44,7 @@ public class App
 		.getValidator();
 
 		Set<ConstraintViolation<Employee>> constraints = validator
-			.validate(employee);
+			.validate(employee,EmployeeChecks.class);
 		if (constraints.isEmpty()) {
 			System.out.print("valid data");
 		}else{	

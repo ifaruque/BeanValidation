@@ -390,32 +390,32 @@ In addition to the constraints defined above by the Bean Validation API . Hibern
 
 			In order to use it need to add jsoup library so add following dependency at pom.xml
 
-				```xml
-				<groupId>org.jsoup</groupId>
-			        <artifactId>jsoup</artifactId>
-			        <version>1.8.3</version>
-			    </dependency>
+			```xml
+			<groupId>org.jsoup</groupId>
+		        <artifactId>jsoup</artifactId>
+		        <version>1.8.3</version>
+		    </dependency>
+			```
+
+			Checks it contains no malicious code such as <script/>.By default it allow all html tag such as b, blockquote, br, caption, cite, code, col, colgroup, dd, dl, dt, em, h1, h2, h3, h4, h5, h6, i, img etc. You can customize it by `whitelistType` and `additionalTags` and `additionalTagsWithAttributes`
+
+			1. whitelistType :  value  allow of enum `WhiteListType`
+
+				1. WhiteListType.NONE = This whitelist allows only text nodes: all HTML will be stripped.
+				2. WhiteListType.SIMPLE_TEXT = allows only simple text formatting: b, em, i, strong, u
+				3. WhiteListType.BASIC = allows a fuller range of text nodes but not img tag
+				4. WhiteListType.BASIC_WITH_IMAGES = allows a fuller range of text nodes + img tag
+				5. WhiteListType.RELAXED = allows a full range of text and structural body HTML.This is default
+
+				```java
+				@SafeHtml(whitelistType = WhiteListType.NONE)
 				```
 
-				Checks it contains no malicious code such as <script/>.By default it allow all html tag such as b, blockquote, br, caption, cite, code, col, colgroup, dd, dl, dt, em, h1, h2, h3, h4, h5, h6, i, img etc. You can customize it by `whitelistType` and `additionalTags` and `additionalTagsWithAttributes`
-
-				1. whitelistType :  value  allow of enum `WhiteListType`
-
-					1. WhiteListType.NONE = No html text related tag allow
-					2. WhiteListType.SIMPLE_TEXT = allows only simple text formatting: b, em, i, strong, u
-					3. WhiteListType.BASIC = allows a fuller range of text nodes but not img tag
-					4. WhiteListType.BASIC_WITH_IMAGES = allows a fuller range of text nodes + img tag
-					5. WhiteListType.RELAXED = allows a full range of text and structural body HTML.This is default
-
-						```java
-						@SafeHtml(whitelistType = WhiteListType.NONE)
-						```
-
-				2. additionalTags & additionalTagsWithAttributes : allows to add tags without any attributes hereas the latter allows to specify tags and optionally allowed attributes using the annotation `@SafeHtml.Tag`.
+			2. additionalTags & additionalTagsWithAttributes : allows to add tags without any attributes hereas the latter allows to specify tags and optionally allowed attributes using the annotation `@SafeHtml.Tag`.
 			
-					```java
-					@SafeHtml(whitelistType = WhiteListType.NONE,additionalTags={@SafeHtml.Tag(name = "p")},additionalTagsWithAttributes={@SafeHtml.Tag(name = "p",attributes = { "style" })})
-					```	
+				```java
+				@SafeHtml(whitelistType = WhiteListType.NONE,additionalTags={@SafeHtml.Tag(name = "p")},additionalTagsWithAttributes={@SafeHtml.Tag(name = "p",attributes = { "style" })})
+				```	
 	3. @URL : checks valid URL according to RFC2396 . by default it is used the java.net.URL constructor to verify whether a given string represents a valid URL.You can customize it like hostname,port etc
 	
 		1. protocol : define protocol that is check		
@@ -537,6 +537,43 @@ Validator validator = Validation.byDefaultProvider()
 		.getValidator();
 ```
 
+### Validation with Inheritance ###
+	
+Bean validations are inherited, so if we are validating object of child class then any validations in parent class will also be executed.
+
+1. Create Person.java
+
+	```java
+	package com.javaaround.model;
+	import javax.validation.constraints.NotNull;
+	import org.hibernate.validator.constraints.NotEmpty;
+	import lombok.Data;
+
+	@Data 
+	public class Person { 
+		@NotEmpty
+		private String name;
+
+	}	
+	```
+
+2. Create Employee.java
+
+	```java
+	@Data
+	public class Employee extends Person{ 
+	```
+3. Update App.java
+
+	```java
+	Employee employee = new Employee();
+    employee.setName("");
+	```
+	
+Run app
+
+
+
 ### Method Parameter Validation ###
 
 The validation of method constraints is done using the ExecutableValidator interface.The ExecutableValidator interface offers altogether four methods:
@@ -581,7 +618,70 @@ Run app
 
 ![Image of Nested](images/4.png) 
 
+### Grouping constraints ###
 
+Groups allow you to restrict the set of constraints applied during validation.The groups are passed as var-arg parameters to the `validate` method. if no group is specified for this annotation the default group javax.validation.groups.Default is assumed.  group  is just a simple tagging interface.
+
+1. Create a group EmployeeChecks.java
+	```java
+	public interface EmployeeChecks {
+	}
+	```
+2. Update Employee.java
+	```java
+	@Min(value = 18,groups = EmployeeChecks.class)
+    private int age;
+
+    @Email(groups = EmployeeChecks.class)
+    private String email;
+	```
+3. Update App.java
+
+	```java
+	 Employee employee = new Employee();
+	 employee.setEmail("shamim.ict0754@gmail.com")
+	 Set<ConstraintViolation<Employee>> constraints = validator
+			.validate(employee);
+
+	```	
+
+Run app
+
+No error happens
+
+
+Update  App.java with group class
+
+	```java
+	Set<ConstraintViolation<Employee>> constraints = validator
+			.validate(employee,EmployeeChecks.class);
+	```
+
+Run app
+
+error happens!! . since we pass a group (EmployeeChecks) that group have also assign age property . we need to validate both property 
+
+![Image of Nested](images/8.png) 
+
+
+Update  App.java
+
+	```java
+	Employee employee = new Employee();
+	employee.setAge(18);
+	employee.setEmail("shamim.ict0754gmail.com");
+	``` 
+
+Run app
+
+No error happens now
+
+if you have mulitple group
+
+	```java
+	Set<ConstraintViolation<Employee>> constraints = validator
+				.validate(employee,Default.class,EmployeeChecks.class,PersonCheck.class);
+	```
 
 Referece Documentation
 
