@@ -17,6 +17,7 @@ import org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpo
 import org.hibernate.validator.resourceloading.PlatformResourceBundleLocator;
 import java.lang.reflect.Method;
 import javax.validation.executable.ExecutableValidator;
+import javax.validation.groups.Default;
 /**
  * Hello world!
  *
@@ -44,7 +45,7 @@ public class App
 		.getValidator();
 
 		Set<ConstraintViolation<Employee>> constraints = validator
-			.validate(employee,EmployeeChecks.class);
+			.validate(employee,Default.class);
 		if (constraints.isEmpty()) {
 			System.out.print("valid data");
 		}else{	
