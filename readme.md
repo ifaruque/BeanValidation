@@ -632,9 +632,14 @@ Groups allow you to restrict the set of constraints applied during validation.Th
 	@Min(value = 18,groups = EmployeeChecks.class)
     private int age;
 
+    //if multiple group
+    //@NotNull(groups={ Employee.class, Contractor.class })
     @Email(groups = EmployeeChecks.class)
     private String email;
 	```
+
+	
+
 3. Update App.java
 
 	```java
@@ -650,7 +655,7 @@ Run app
 No error happens
 
 
-Update  App.java with group class
+4. Update  App.java with group class
 
 	```java
 	Set<ConstraintViolation<Employee>> constraints = validator
