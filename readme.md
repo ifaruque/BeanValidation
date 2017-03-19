@@ -620,17 +620,9 @@ Run app
 
 ### Grouping constraints ###
 
-Groups allow you to restrict the set of constraints applied during validation.The groups are passed as var-arg parameters to the `validate` method. if no group is specified for this annotation the default group javax.validation.groups.Default is assumed.  group  is just a simple tagging interface.
+Groups allow you to restrict the set of constraints applied during validation.The groups are passed as var-arg parameters to the `validate` method. if no group is specified for this annotation the default group javax.validation.groups.Default is assumed(All field value must be provide if not then validation errors).  group  is just a simple tagging interface.
 
-Update App.java
 
-```java
-import javax.validation.groups.Default;
-Set<ConstraintViolation<Employee>> constraints = validator
-			.validate(employee,Default.class);
-```
-
-![Image of Nested](images/8.png) 
 
 All field value must be provide if not then validation errors
 

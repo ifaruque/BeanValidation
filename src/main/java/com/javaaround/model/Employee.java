@@ -28,7 +28,7 @@ public class Employee{
     @DecimalMax(value = "50000.00")
     private Double salary; 
 
-     @Min(value = 18)
+    @Min(value = 18)
     private int age;
 
     @Email

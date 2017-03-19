@@ -45,7 +45,7 @@ public class App
 		.getValidator();
 
 		Set<ConstraintViolation<Employee>> constraints = validator
-			.validate(employee,Default.class);
+			.validate(employee);
 		if (constraints.isEmpty()) {
 			System.out.print("valid data");
 		}else{	
