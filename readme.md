@@ -720,6 +720,20 @@ If a group inherits from another group, validating that group results in validat
 			.validate(employee,EmployeeChecks2.class);
 	```
 
+### Defining group sequences ###
+
+By default, constraints are evaluated in no particular order.you can define it by `javax.validation.GroupSequence;`
+
+```java
+import javax.validation.GroupSequence;
+import javax.validation.groups.Default;
+
+@GroupSequence({ Default.class, CarChecks.class, DriverChecks.class })
+public interface OrderedChecks {
+}
+```
+
+
 Referece Documentation
 
 [Download](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-method-constraints)
