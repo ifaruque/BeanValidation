@@ -1,3 +1,3 @@
 package com.javaaround.model;
-public interface EmployeeChecks {
+public interface EmployeeChecks{
 }

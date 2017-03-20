@@ -28,10 +28,10 @@ public class Employee{
     @DecimalMax(value = "50000.00")
     private Double salary; 
 
-    @Min(value = 18)
+    @Min(value = 18,groups=EmployeeChecks.class)
     private int age;
-
-    @Email
+    
+    @Email(groups=EmployeeChecks2.class)
     private String email;
 
 }   

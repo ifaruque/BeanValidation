@@ -693,6 +693,33 @@ if you have mulitple group
 				.validate(employee,Default.class,EmployeeChecks.class,PersonCheck.class);
 	```
 
+### Group inheritance ###
+
+If a group inherits from another group, validating that group results in validating all constraints declared as part of the supergroup
+
+1. Create EmployeeChecks.java
+
+	```java
+	package com.javaaround.model;
+	public interface EmployeeChecks2 extends EmployeeChecks{
+	}
+	```
+2. Update Employee.java
+
+	```java
+	@Min(value = 18,groups=EmployeeChecks.class)
+    private int age;
+    
+    @Email(groups=EmployeeChecks2.class)
+    private String email;
+	```	
+2. Update App.java
+
+	```java
+	Set<ConstraintViolation<Employee>> constraints = validator
+			.validate(employee,EmployeeChecks2.class);
+	```
+
 Referece Documentation
 
 [Download](https://docs.jboss.org/hibernate/stable/validator/reference/en-US/html_single/#section-builtin-method-constraints)

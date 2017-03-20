@@ -7,6 +7,7 @@ import javax.validation.ValidatorFactory;
 import com.javaaround.model.Employee;
 import com.javaaround.model.EmployeeDetails;
 import com.javaaround.model.EmployeeChecks;
+import com.javaaround.model.EmployeeChecks2;
 import com.javaaround.model.Address;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -45,7 +46,7 @@ public class App
 		.getValidator();
 
 		Set<ConstraintViolation<Employee>> constraints = validator
-			.validate(employee);
+			.validate(employee,EmployeeChecks2.class);
 		if (constraints.isEmpty()) {
 			System.out.print("valid data");
 		}else{	
