@@ -733,6 +733,14 @@ public interface OrderedChecks {
 }
 ```
 
+### Group conversion ###
+
+you wanted to validate the one group together with the another groups
+
+```java
+import javax.validation.ConvertGroup;
+@ConvertGroup(from = Default.class, to = DriverChecks.class)
+```
 
 Referece Documentation
 
